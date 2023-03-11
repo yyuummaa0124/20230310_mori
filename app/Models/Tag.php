@@ -9,7 +9,7 @@ class Tag extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['tag', 'created_at'];
+    protected $fillable = ['name', 'created_at'];
 
     public function todos(){
         return $this->hasMany('App\Models\Todo');
