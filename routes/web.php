@@ -15,8 +15,8 @@ use App\Http\Controllers\TodoController;
 */
 
 Route::group(['prefix' => 'todo'], function() {
-    Route::get('/', [TodoController::class,'index']);
-    Route::post('/create', [TodoController::class,'create']);
+    Route::get('/', [TodoController::class,'index'])->name('todo.index');
+    Route::post('/create', [TodoController::class,'create'])->name('todo.create');
     Route::put('/update', [TodoController::class,'update']);
     Route::delete('/delete', [TodoController::class,'delete']);
     Route::get('/find', [TodoController::class,'find']);
@@ -24,7 +24,7 @@ Route::group(['prefix' => 'todo'], function() {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('index');
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';

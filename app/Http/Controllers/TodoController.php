@@ -15,12 +15,24 @@ class TodoController extends Controller
     public function index(){
         $user = Auth::user();
         $todos = $user->todos;
-        // dd($todos);
-        $param = ['user' =>$user , 'todos' =>$todos];
+        $tags = Tag::all();
+        // dd($tags);
+        $param = ['user' =>$user , 'todos' =>$todos ,'tags' =>$tags];
         return view('index', $param);
     }
 
-    public function create(TodoRequest $request){
+    public function create(Request $request){
+
+        $form = $request->get('question',[
+            'content' => $request->content,
+            'user_id' => auth()->user()->id,
+            'tag_id'  => $request->tag_id,
+        ]);
+        unset($form['_token']);
+        dd($form);
+        Todo::creata($form);
+        return view('aaa');
+        // return redirect('/');
     }
 
     public function update(){
@@ -29,6 +41,8 @@ class TodoController extends Controller
 
     public function delete(){
         
+        Author::find($request->id)->delete();
+        return redirect('/');
     }
 
     public function find(){
