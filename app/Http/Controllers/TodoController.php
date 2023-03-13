@@ -16,7 +16,7 @@ class TodoController extends Controller
         $user = Auth::user();
         $todos = $user->todos;
         $tags = Tag::all();
-        // dd($tags);
+        // dd($todos);
         $param = ['user' =>$user , 'todos' =>$todos ,'tags' =>$tags];
         return view('index', $param);
     }
@@ -29,25 +29,22 @@ class TodoController extends Controller
             'tag_id'  => $request->tag_id,
         ]);
         unset($form['_token']);
-        dd($form);
-        Todo::creata($form);
-        return view('aaa');
-        // return redirect('/');
+        // dd($form);
+        Todo::create($form);
+        return redirect('/todo');
     }
 
-    public function update(){
+    public function update(Request $request){
+        $form = $request->all();
+        unset($form['_token']);
+        Todo::find($request->id)->update($form);
+        return redirect('/todo');
+    }
+
+    public function delete(Request $request){
         
-    }
-
-    public function delete(){
-        
-        Author::find($request->id)->delete();
-        return redirect('/');
-    }
-
-    public function find(){
-    
-        return view('find');
+        Todo::find($request->id)->delete();
+        return redirect('/todo');
     }
 
     public function search(){
