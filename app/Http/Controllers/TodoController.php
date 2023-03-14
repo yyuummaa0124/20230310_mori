@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TodoRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Todo;
 use App\Models\Tag;
@@ -47,7 +48,29 @@ class TodoController extends Controller
         return redirect('/todo');
     }
 
-    public function search(){
+    public function find(){
     
+        $user = Auth::user();
+        $todos = $user->todos;
+        $tags = Tag::all();
+        // dd($todos);
+        $param = ['user' =>$user , 'todos' =>$todos ,'tags' =>$tags];
+        return view('find', $param);
     }
+
+    public function search(Request $request){
+        
+        $user = Auth::user();
+        $todos = $user->todos()->where('content',$request->content )->get();
+        $tags = Tag::all();
+        // dd($tags);
+        $param = ['user' =>$user , 'todos' =>$todos ,'tags' =>$tags];
+        return view('find', $param);
+    }
+
+    protected function logout() {
+	Auth::logout();
+	return redirect('login');
+    }
+
 }

@@ -136,24 +136,22 @@ table{
           <p>ログインしてください。<a href="/login">ログイン</a>
           <a href="/register">登録</a></p>
         @endif
-        <form method="post" action="">
+        <form method="get" action="{{route('logout')}}">
           <input type="hidden" name="_token" value="nctQS6ZbHZn7A9M44XrAwmkg7d1y3Dy19L1e3I5t">     
           <input class="btn btn-logout" type="submit" value="ログアウト">
         </form>
       </div>
     </div>
-    <form action="/find" method="GET">
-    <a class="btn btn-search" href="/find">タスク検索</a>
-    </form>
+    
   <div class="todo">
-    <form action="{{route('todo.create')}}" class="flex between mb-30" method="POST">
+    <form action="{{route('todo.search')}}" class="flex between mb-30" method="get">
       @csrf
     <input type="text" class="input-add" name="content">
     <select class="select-tag" value="" name="tag_id">
       @foreach ($tags as $tag)
       <option  value="{{ $tag->id }}" >{{ $tag->name }}</option>
     @endforeach
-    <input class="btn btn-add" type="submit" value="追加">
+    <input class="btn btn-add" type="submit" value="検索">
     </form>
     <table>
       <tr>

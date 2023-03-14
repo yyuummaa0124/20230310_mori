@@ -93,6 +93,13 @@ input, select {
   border: 2px solid #71fadc;
   color: #71fadc;
 }
+.btn-search {
+  display: inline-block;
+  border: 2px solid #cdf119;
+  color: #cdf119;
+  text-decoration: none;
+  margin-bottom: 10px;
+}
 tr {
   height: 50px;
 }
@@ -136,14 +143,16 @@ table{
           <p>ログインしてください。<a href="/login">ログイン</a>
           <a href="/register">登録</a></p>
         @endif
-        <form method="post" action="">
+        <form method="get" action="{{route('logout')}}">
+          @csrf
           <input type="hidden" name="_token" value="nctQS6ZbHZn7A9M44XrAwmkg7d1y3Dy19L1e3I5t">     
           <input class="btn btn-logout" type="submit" value="ログアウト">
         </form>
       </div>
     </div>
-    <form action="/find" method="GET">
-    <a class="btn btn-search" href="/find">タスク検索</a>
+    <form action="{{route('todo.find')}}" method="GET">
+      @csrf
+    <button class="btn btn-search">タスク検索</button>
     </form>
   <div class="todo">
     <form action="{{route('todo.create')}}" class="flex between mb-30" method="POST">
