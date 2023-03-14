@@ -128,7 +128,7 @@ table{
 <div class="container">
   <div class="card">
     <div class="card__header">
-      <p class="card__title">Todo List</p>
+      <p class="card__title">タスク検索</p>
       <div class="auth mb-15">
         @if (Auth::check())
           <p class="detail">「{{$user->name}}」でログイン中</p>
