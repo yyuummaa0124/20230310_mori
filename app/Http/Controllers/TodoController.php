@@ -61,11 +61,36 @@ class TodoController extends Controller
     public function search(Request $request){
         
         $user = Auth::user();
-        $todos = $user->todos()->where('content',$request->content )->get();
-        $tags = $tag->todos()->where('tag_id',$request->id)->get();
-        // dd($tags);
-        $param = ['user' =>$user , 'todos' =>$todos ,'tags' =>$tags];
+        $searchcontent = $request->input('content');
+        $searchtagid = $request->input('tag_id');
+        
+        $query = Todo::query();
+        //商品名が入力された場合、m_productsテーブルから一致する商品を$queryに代入
+        if (isset($searchcontent)) {
+            $query->where('content', 'like', '%' . self::escapeLike($searchcontent) . '%');
+        }
+
+        //カテゴリが選択された場合、m_categoriesテーブルからcategory_idが一致する商品を$queryに代入
+        if (isset($searchtagid)) {
+            $query->where('tag_id', $searchtagid);
+        }
+
+        $todos = $query->get();
+        $todos = $user->todos;
+        $tagall = Tag::all();
+        $tag = Tag::find($request->tag_id);
+        $tags = $tag->todos()->get();
+        $tags = $user->where('tag_id',$tags );
+        dd($tags);
+
+
+        $param = ['user' =>$user , 'todos' =>$todos, 'tags' =>$tags , 'tagall'=>$tagall];
         return view('find', $param);
+    }
+
+    public static function escapeLike($str)
+    {
+        return str_replace(['\\', '%', '_'], ['\\\\', '\%', '\_'], $str);
     }
 
     protected function logout() {

@@ -176,15 +176,17 @@ table{
     @foreach ($todos as $todo)
     <tr>
       <td>{{$todo->created_at}}</td>
-
       <form action="{{route('todo.update',['id' => $todo->id])}}" method="post">
         @csrf
+
       <td><input type="text" value="{{$todo->content}}" class="input-update" name="content"></td>
+
       <td><select class="select-tag" name="tag_id">
         @foreach ($tags as $tag)
       <option value="{{ $tag->id }}" {{ ( $tag->id == $todo->tag->id) ? 'selected' : '' }}>{{$tag->name}}</option>
       @endforeach
       </select></td>
+
       <td><input class="btn btn-update" type="submit" value="更新"></td>
       </form>
 
@@ -194,6 +196,7 @@ table{
       </form>
     </tr>
     @endforeach
+
     </table>
     </div>
   </div>

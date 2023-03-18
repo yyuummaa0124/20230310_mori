@@ -142,13 +142,14 @@ table{
         </form>
       </div>
     </div>
-    
+
   <div class="todo">
     <form action="{{route('todo.search')}}" class="flex between mb-30" method="get">
       @csrf
     <input type="text" class="input-add" name="content">
     <select class="select-tag" value="" name="tag_id">
-      @foreach ($tags as $tag)
+      <option value=""></option>
+      @foreach ($tagall as $tag)
       <option  value="{{ $tag->id }}" >{{ $tag->name }}</option>
     @endforeach
     <input class="btn btn-add" type="submit" value="検索">
@@ -162,6 +163,7 @@ table{
         <th>削除</th>
       </tr>
 
+    @if (!empty($todos))
     @foreach ($todos as $todo)
     <tr>
       <td>{{$todo->created_at}}</td>
@@ -170,7 +172,7 @@ table{
         @csrf
       <td><input type="text" value="{{$todo->content}}" class="input-update" name="content"></td>
       <td><select class="select-tag" name="tag_id">
-        @foreach ($tags as $tag)
+        @foreach ($tagall as $tag)
       <option value="{{ $tag->id }}" {{ ( $tag->id == $todo->tag->id) ? 'selected' : '' }}>{{$tag->name}}</option>
       @endforeach
       </select></td>
@@ -183,8 +185,10 @@ table{
       </form>
     </tr>
     @endforeach
+    @endif
+
     </table>
-    </div>
+  </div>
   </div>
 </div>
 @endsection
