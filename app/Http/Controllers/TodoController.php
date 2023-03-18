@@ -65,12 +65,11 @@ class TodoController extends Controller
         $searchtagid = $request->input('tag_id');
         
         $query = Todo::query();
-        //商品名が入力された場合、m_productsテーブルから一致する商品を$queryに代入
+
         if (isset($searchcontent)) {
             $query->where('content', 'like', '%' . self::escapeLike($searchcontent) . '%');
         }
 
-        //カテゴリが選択された場合、m_categoriesテーブルからcategory_idが一致する商品を$queryに代入
         if (isset($searchtagid)) {
             $query->where('tag_id', $searchtagid);
         }
