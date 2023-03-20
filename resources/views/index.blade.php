@@ -154,11 +154,20 @@ table{
       @csrf
     <button class="btn btn-search">タスク検索</button>
     </form>
+
+      @if (count($errors) > 0)
+      <ul>
+        @foreach ($errors->all() as $error)
+        <li>{{$error}}</li>
+        @endforeach
+      </ul>
+      @endif
   <div class="todo">
     <form action="{{route('todo.create')}}" class="flex between mb-30" method="POST">
       @csrf
     <input type="text" class="input-add" name="content">
     <select class="select-tag" value="" name="tag_id">
+      <option value=""></option>
       @foreach ($tags as $tag)
       <option  value="{{ $tag->id }}" >{{ $tag->name }}</option>
     @endforeach

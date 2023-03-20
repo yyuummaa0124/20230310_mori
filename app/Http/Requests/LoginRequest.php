@@ -24,12 +24,21 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|between:1,191',
             'email' => 'required|email|between:8,191|unique:users,email',
             'password' => 'required|between:1,191|confirmed:password',
-            'email' => '',
-            'password' => ''
             
+        ];
+    }
+
+        public function messages()
+    {
+        return [
+            'email.required' => 'メールアドレスを入力してください。',
+            'email.between:8,191' => '191文字以下で入力してください。',
+            'email.email' => 'メールアドレスの形式で入力してください。',
+            'password.required' => 'パスワードを入力してください',
+            'password.between:8,191' => 'パスワードは8文字以上で入力してください。',
+            'password.confirmed:password' => 'パスワードが一致しません。',
         ];
     }
 }

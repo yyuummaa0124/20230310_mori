@@ -22,7 +22,7 @@ class TodoController extends Controller
         return view('index', $param);
     }
 
-    public function create(Request $request){
+    public function create(TodoRequest $request){
 
         $form = $request->get('question',[
             'content' => $request->content,
@@ -75,15 +75,10 @@ class TodoController extends Controller
         }
 
         $todos = $query->get();
-        $todos = $user->todos;
-        $tagall = Tag::all();
-        $tag = Tag::find($request->tag_id);
-        $tags = $tag->todos()->get();
-        $tags = $user->where('tag_id',$tags );
-        dd($tags);
-
-
-        $param = ['user' =>$user , 'todos' =>$todos, 'tags' =>$tags , 'tagall'=>$tagall];
+        $tags = Tag::all();
+        // dd($tags);
+        
+        $param = ['user' =>$user , 'todos' =>$todos, 'tags' =>$tags];
         return view('find', $param);
     }
 

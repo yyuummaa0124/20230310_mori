@@ -121,6 +121,12 @@ tr {
 table{
   width: 100%;
 }
+.btn-back {
+  border: 2px solid #6d7170;
+  color: #6d7170;
+  background-color: #fff;
+  text-decoration: none;
+}
 </style>
 @section('title', 'index.blade.php')
 
@@ -149,7 +155,7 @@ table{
     <input type="text" class="input-add" name="content">
     <select class="select-tag" value="" name="tag_id">
       <option value=""></option>
-      @foreach ($tagall as $tag)
+      @foreach ($tags as $tag)
       <option  value="{{ $tag->id }}" >{{ $tag->name }}</option>
     @endforeach
     <input class="btn btn-add" type="submit" value="検索">
@@ -172,7 +178,7 @@ table{
         @csrf
       <td><input type="text" value="{{$todo->content}}" class="input-update" name="content"></td>
       <td><select class="select-tag" name="tag_id">
-        @foreach ($tagall as $tag)
+        @foreach ($tags as $tag)
       <option value="{{ $tag->id }}" {{ ( $tag->id == $todo->tag->id) ? 'selected' : '' }}>{{$tag->name}}</option>
       @endforeach
       </select></td>
@@ -186,9 +192,9 @@ table{
     </tr>
     @endforeach
     @endif
-
     </table>
   </div>
+    <a  class="btn btn-back" href={{ route('todo.index') }}>戻る</a>
   </div>
 </div>
 @endsection

@@ -25,7 +25,7 @@ class TodoRequest extends FormRequest
     {
         return [
             'content' => 'required|between:1,20',
-            'tag' => 'required'
+            'tag_id' => 'required'
         ];
     }
 
@@ -34,7 +34,7 @@ class TodoRequest extends FormRequest
         return [
             'content.required' => 'タスクを入力してください。',
             'content.between' => 'タスクは20文字以下で入力してください。',
-            'tag.required' => 'タグを入力してください。',
+            'tag_id.required' => 'タグを入力してください。',
         ];
     }
 }
