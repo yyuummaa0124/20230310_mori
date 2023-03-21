@@ -14,8 +14,8 @@ use App\Http\Controllers\TodoController;
 |
 */
 
-Route::group(['prefix' => 'todo'], function() {
-    Route::get('/', [TodoController::class,'index'])->middleware('auth')->name('todo.index');
+Route::group(['middleware' => 'auth'],function() {
+    Route::get('/', [TodoController::class,'index'])->name('todo.index');
     Route::post('/create', [TodoController::class,'create'])->name('todo.create');
     Route::post('/update', [TodoController::class,'update'])->name('todo.update');
     Route::post('/delete', [TodoController::class,'delete'])->name('todo.delete');

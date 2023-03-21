@@ -167,7 +167,6 @@ table{
       @csrf
     <input type="text" class="input-add" name="content">
     <select class="select-tag" value="" name="tag_id">
-      <option value=""></option>
       @foreach ($tags as $tag)
       <option  value="{{ $tag->id }}" >{{ $tag->name }}</option>
     @endforeach
